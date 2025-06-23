@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scientific Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="calculator">
+    <h1>Scientific Calculator</h1>
+
+    <form action="/cgi-bin/calculator.exe" method="get" target="resultFrame">
+      <input type="text" name="expr" id="display" required>
+
+      <div class="grid">
+        <button type="button" onclick="append('1')">1</button>
+        <button type="button" onclick="append('2')">2</button>
+        <button type="button" onclick="append('3')">3</button>
+        <button type="button" onclick="append('4')">4</button>
+        <button type="button" onclick="append('5')">5</button>
+        <button type="button" onclick="append('6')">6</button>
+        <button type="button" onclick="append('7')">7</button>
+        <button type="button" onclick="append('8')">8</button>
+        <button type="button" onclick="append('9')">9</button>
+        <button type="button" onclick="append('0')">0</button>
+        <button type="button" onclick="append(',')">,</button>
+
+        <button type="button" onclick="append('+')">+</button>
+        <button type="button" onclick="append('-')">-</button>
+        <button type="button" onclick="append('*')">*</button>
+        <button type="button" onclick="append('/')">/</button>
+        <button type="button" onclick="append('^')">^</button>
+
+        <button type="button" onclick="append('sqrt(')">sqrt(</button>
+        <button type="button" onclick="append('sin(')">sin(</button>
+        <button type="button" onclick="append('cos(')">cos(</button>
+        <button type="button" onclick="append('tan(')">tan(</button>
+        <button type="button" onclick="append('cbrt(')">cbrt(</button>
+        <button type="button" onclick="append('asin(')">asin(</button>
+        <button type="button" onclick="append('acos(')">acos(</button>
+        <button type="button" onclick="append('atan(')">atan(</button>
+        <button type="button" onclick="append('(')">(</button>
+        <button type="button" onclick="append(')')">)</button>
+        <button type="button" onclick="append('pi')">Pi</button>
+        <button type="button" onclick="append('factorial(')">Factorial</button>
+
+        <button type="button" onclick="clearDisplay()" class="red">C</button>
+        <button type="submit" class="orange">=</button>
+        <button type="button" onclick="deleteLast()" class="blue">del</button>
+      </div>
+    </form>
+
+    <h3>Result:</h3>
+    <iframe name="resultFrame" style="width: 100%; height: 120px; border: none; background: #f4fff4;"></iframe>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function append(value) {
+      display.value += value;
+    }
+
+    function deleteLast() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    // ✅ Keyboard support
+    document.addEventListener('keydown', function (e) {
+      const key = e.key.toLowerCase();
+
+      if (/\d/.test(key)) {
+        append(key); // digits 0-9
+      } else if (['+', '-', '*', '/', '.', '^', '(', ')'].includes(key)) {
+        append(key);
+      } else if (key === 'backspace') {
+        e.preventDefault();
+        deleteLast();
+      } else if (key === 'enter') {
+        e.preventDefault();
+        document.querySelector('form').submit();
+      } else if (key === 'c') {
+        clearDisplay();
+      }
+
+      // Function shortcuts
+      else if (key === 's') {
+        append('sin(');
+      } else if (key === 'o') {
+        append('cos(');
+      } else if (key === 't') {
+        append('tan(');
+      } else if (key === 'q') {
+        append('sqrt(');
+      } else if (key === 'f') {
+        append('factorial(');
+      } else if (key === 'p') {
+        append('pi');
+      }
+    });
+  </script>
+</body>
+</html>
