@@ -1,7 +1,7 @@
 # 🔢 Scientific Calculator 💡
 
 A modern, browser-based scientific calculator built with a **C backend** and a sleek **HTML/CSS/JS frontend** — connected seamlessly using **Python's built-in CGI server**.  
-💻 No XAMPP, no external servers — just fast native C performance in your browser.
+
 
 ---
 ## 🧠 Technologies Used
